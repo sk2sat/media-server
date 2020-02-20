@@ -27,6 +27,18 @@ services:
     volumes:
       - ./data/nextcloud:/var/www/html
 
+  jellyfin:
+    image: jellyfin/jellyfin
+    restart: always
+    depends_on:
+      - nextcloud
+    volumes:
+      - ./data/jellyfin/config:/config
+      - ./data/jellyfin/cache:/cache
+      - ./data/nextcloud/data:/media
+    ports:
+      - 8096:8096
+
   web:
     image: nginx:alpine
     restart: always
